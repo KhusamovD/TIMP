@@ -1,33 +1,18 @@
-flag = "+"
-while flag == "+":
-    print("\n" "Добро пожаловать в НАциональный Единый БАНК кредитования в иностранной валюте")
+import account
+import converter
 
-    nok = 69
-    usd = 57
-    print ("\n" "Курс Шведской кроны = ", nok, "\n" "Курс доллара =", usd)
 
-    currency = int(input("\n Введите код валюты, в которой вы хотите взять кредит: Крона - 1, Доллар - 2:"))
-    x = (input("\nВведите с какой целью вы хотите взять кредит: "))
+def main():
+    rate = int(input("Введите процентную ставку: "))
+    money = int(input("Введите сумму: "))
+    period = int(input("Введите период ведения счета в месяцах: "))
 
-    if currency == 1:
-        money=int(input("Введите необходимое количество крон"))
-        if money > 0:
-             rate = int(input("Введите процентную ставку = "))
-             period = int(input("Введите период на который вы берете кредит = "))
-             result = round((((money*rate)/100)+money),0)
-             mounth = round(result/period,2)
-             print("Вам надо будет отдать банку: ",result,"Евро","или по",mounth,"Евро в течении",period,"месяцев")
-        else:
-             print ("\n""Введите сумму отличную от нуля")
+    result = account.calculate_income(rate, money, period)
+    for i in range(len(converter.v)):
+        a = converter.convert(money, i)
+        b = converter.convert(result, i)
+        print("Параметры счета ({0}):\n".format(a[0]), "Сумма ({0}): {1}".format(a[0], a[1]), "\n", "Ставка: ", rate,
+              "\n", "Период: ", period, "\n", "Сумма на счете в конце периода ({0}): {1}".format(b[0], b[1]))
 
-    elif currency==2:
-        money = int(input("Введите необходимое количество долларов сша"))
-        if money > 0:
-            rate = int(input("Введите процентную ставку = "))
-            period = int(input("Введите период на который вы берете кредит = "))
-            result = round((((money * rate) / 100) + money), 0)
-            mounth = round(result / period, 2)
-            print("Вам надо будет отдать банку: ", result, "Евро", "или по", mounth, "Евро в течении", period, "месяцев")
-        else:
-           print("\n""Введите сумму отличную от нуля")
-flag = input("\tЖелаете еще взять кредит? ( + или - ) ")
+
+main()
